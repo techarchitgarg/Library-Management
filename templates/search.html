@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Library Management System</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+  <div class="container">
+    <h1 class="mt-5 mb-4">Library Books</h1>
+
+    <!-- <form action="/search_books" method="GET">
+      <input type="text" name="search_query" value="{{ search_query }}">
+      <button type="submit">Search</button>
+  </form> -->
+
+    <div class="row">
+      {% if books %}
+        <!-- Book Cards -->
+        {% for book in books %}
+        <div class="col-md-4 mb-4">
+          <div class="card">
+            <img src="{{ book.poster }}" class="card-img-top" alt="Book Cover" height="400px" width="400px">
+            <div class="card-body">
+              <h5 class="card-title">{{ book.name }}</h5>
+              <p class="card-text">{{ book.author }}</p>
+              <p class="card-text">price - {{book.price}}</p>
+              <a href="/payment" class="btn btn-primary">Download Book</a>
+              <button class="btn btn-primary" onclick="requestAccess('{{ book.id }}', '{{ current_user }}' , '{{ username }}' , '{{ book.name }}')">Request Access</button>
+              <!-- <a class="btn btn-warning">Delete this book</a> -->
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+        <!-- End of Book Cards -->
+      {% else %}
+        <!-- No Books Available Message -->
+        <div class="col text-center">
+          <h2>No books available.</h2>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- Bootstrap JS and dependencies -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script>
+    function requestAccess(bookId, userId , username , bookName) {
+        // Prompt the user for the number of days
+        let days = prompt("Enter the number of days (1-7) you want to access this book:");
+
+        // Check if the input is valid
+        if (days === null || days === "") {
+            alert("Please enter a valid number of days.");
+            return;
+        }
+
+        // Convert the input to a number
+        days = parseInt(days);
+
+        // Check if the input is within the valid range (1-7)
+        if (isNaN(days) || days < 1 || days > 7) {
+            alert("Please enter a number between 1 and 7.");
+            return;
+        }
+
+        console.log('User ID:', userId);
+        console.log('Username:', username);
+        console.log('Book ID:', bookId);
+        console.log('Days:', days);
+        console.log('bookname' , bookName)
+
+        // Send a POST request to the server to store the access request
+        fetch('/request_access', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                user_id: userId,
+                book_id: bookId,
+                username: username,
+                bookName : bookName,
+                access_type: 'request',
+                days: days
+            })
+        }).then(response => {
+            if (response.ok) {
+                alert("Access request successful!");
+            } else {
+                // console.log()
+                alert("Failed to request access.");
+            }
+        }).catch(error => {
+            console.error('Error:', error);
+            alert("Failed to request access.");
+        });
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Sections - Library Management System</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+    <!-- Custom CSS -->
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            margin-top: 50px;
+        }
+
+        .card {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="{{ url_for('user_dashboard', user_id=active_user.user_id , ) }}">Visit Profile</a>
+        
+        <form action="/search_user_section" method="GET" class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="text" name="search_query" value="{{ search_query }}" placeholder="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+    </nav>
+
+    <div class="container">
+        <h2 class="text-center mt-4 mb-4">Book Sections</h2>
+
+        <div class="row">
+
+            {% for todo in alltodo %}
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="https://via.placeholder.com/300/228B22/FFFFFF?text={{todo.name}}" class="card-img-top"
+                         alt="Non-Fiction"> 
+                    <div class="card-body">
+                        <h5 class="card-title">{{todo.name}}</h5>
+                        <p class="card-text">{{todo.description}}</p>
+                        <!-- <a href="/exploreBooks/{{ todo.id }}?user_id={{ active_user.user_id }}" class="btn btn-primary">Explore</a> -->
+                        <a href="/exploreBooks/{{ todo.id }}?user_id={{ active_user.user_id }}&username={{ active_user.username }}" class="btn btn-primary">Explore</a>
+
+                    </div>
+                </div>
+            </div>
+              {% endfor %}
+
+            <!-- Comedy Section -->
+            <!-- <div class="col-md-4">
+                <div class="card">
+                    <img src="https://via.placeholder.com/300/FF5733/FFFFFF?text=Comedy" class="card-img-top" alt="Comedy">
+                    <div class="card-body">
+                        <h5 class="card-title">Comedy</h5>
+                        <p class="card-text">Discover a collection of humorous books that will make you laugh out loud.</p>
+                        <a href="#" class="btn btn-primary">Explore</a>
+                    </div>
+                </div>
+            </div> -->
+
+            <!-- Drama Section -->
+            <!-- <div class="col-md-4">
+                <div class="card">
+                    <img src="https://via.placeholder.com/300/800080/FFFFFF?text=Drama" class="card-img-top" alt="Drama">
+                    <div class="card-body">
+                        <h5 class="card-title">Drama</h5>
+                        <p class="card-text">Explore gripping stories that will take you on an emotional rollercoaster.</p>
+                        <a href="#" class="btn btn-primary">Explore</a>
+                    </div>
+                </div>
+            </div> -->
+
+            <!-- Romance Section -->
+            <!-- <div class="col-md-4">
+                <div class="card">
+                    <img src="https://via.placeholder.com/300/FF1493/FFFFFF?text=Romance" class="card-img-top"
+                        alt="Romance">
+                    <div class="card-body">
+                        <h5 class="card-title">Romance</h5>
+                        <p class="card-text">Find love and passion in our collection of romantic novels and stories.</p>
+                        <a href="#" class="btn btn-primary">Explore</a>
+                    </div>
+                </div>
+            </div> -->
+
+            <!-- Mystery Section -->
+            <!-- <div class="col-md-4">
+                <div class="card">
+                    <img src="https://via.placeholder.com/300/1E90FF/FFFFFF?text=Mystery" class="card-img-top"
+                        alt="Mystery">
+                    <div class="card-body">
+                        <h5 class="card-title">Mystery</h5>
+                        <p class="card-text">Unravel the secrets with our mysterious collection of books.</p>
+                        <a href="#" class="btn btn-primary">Explore</a>
+                    </div>
+                </div>
+            </div> -->
+
+            <!-- Science Fiction Section -->
+            <!-- <div class="col-md-4">
+                <div class="card">
+                    <img src="https://via.placeholder.com/300/00CED1/FFFFFF?text=Sci-Fi" class="card-img-top"
+                        alt="Science Fiction">
+                    <div class="card-body">
+                        <h5 class="card-title">Science Fiction</h5>
+                        <p class="card-text">Embark on futuristic journeys with our collection of science fiction books.</p>
+                        <a href="#" class="btn btn-primary">Explore</a>
+                    </div>
+                </div>
+            </div> -->
+
+            <!-- Fantasy Section -->
+            <!-- <div class="col-md-4">
+                <div class="card">
+                    <img src="https://via.placeholder.com/300/8B4513/FFFFFF?text=Fantasy" class="card-img-top"
+                        alt="Fantasy">
+                    <div class="card-body">
+                        <h5 class="card-title">Fantasy</h5>
+                        <p class="card-text">Escape to magical realms with our enchanting fantasy book collection.</p>
+                        <a href="#" class="btn btn-primary">Explore</a>
+                    </div>
+                </div>
+            </div> -->
+
+            <!-- History Section -->
+            <!-- <div class="col-md-4">
+                <div class="card">
+                    <img src="https://via.placeholder.com/300/8B4513/FFFFFF?text=History" class="card-img-top"
+                        alt="History">
+                    <div class="card-body">
+                        <h5 class="card-title">History</h5>
+                        <p class="card-text">Travel back in time with our extensive collection of historical books.</p>
+                        <a href="#" class="btn btn-primary">Explore</a>
+                    </div>
+                </div>
+            </div> -->
+
+            <!-- Non-Fiction Section -->
+            <!-- <div class="col-md-4">
+                <div class="card">
+                    <img src="https://via.placeholder.com/300/228B22/FFFFFF?text=Non-Fiction" class="card-img-top"
+                        alt="Non-Fiction">
+                    <div class="card-body">
+                        <h5 class="card-title">Non-Fiction</h5>
+                        <p class="card-text">Expand your knowledge with our informative non-fiction book collection.</p>
+                        <a href="#" class="btn btn-primary">Explore</a>
+                    </div>
+                </div>
+            </div> -->
+
+            <!-- Add more sections as needed -->
+
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and Popper.js -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap

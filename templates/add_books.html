@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <br>
+    <h3 style="text-align: center;">You can Add Books here</h3>
+    <br>
+    <br>
+    {% if alltodo %}
+    <div class="container">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">S.No</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Add books</th>
+                    <!-- <th scope="col">Actions</th> -->
+                </tr>
+            </thead>
+            <tbody>
+                {% for todo in alltodo %}
+                <tr>
+                    <th>{{ loop.index }}</th>
+                    <td>{{ todo.name }}</td>
+                    <td>{{ todo.description }}</td>
+                    <!-- <td>{{ todo.date_created }}</td> -->
+                    <td>
+                        <a href="/adding_books/{{ todo.id }}" type="button" class="btn btn-success mr-2">Add Books</a>
+                        <a href="/delete_books/{{ todo.id }}" type="button" class="btn btn-info mr-2"> Update Books </a>
+                        <a href="/exploreBooks/{{ todo.id }}" type="button" class="btn btn-primary">Explore Books</a>
+
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <div class="container">
+        <p>No data available.</p>
+    </div>
+    {% endif %}
+
+    <!-- Bootstrap JS and jQuery (not necessary for styling the table) -->
+    <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script> -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script> -->
+    <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
+</body>
+</html>

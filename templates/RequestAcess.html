@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .container {
+            padding-top: 50px;
+        }
+        h2 {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="text-center">
+            <h2>Books that are Requested</h2>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">S.No</th>
+                            <th scope="col">Book Name</th>
+                            <th scope="col">For the Days</th>
+                            <th scope="col">username</th>
+                            <th scope="col">access type</th>
+                            <th scope="col">Access_date</th>
+                            <th scope="col">Options</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for book in requestAccess %}
+                        <tr>
+                            <th scope="row">{{ loop.index }}</th>
+                            <td>{{ book.book_name }}</td>
+                            <td>{{ book.days }}</td>
+                            <td>{{book.user_name}}</td>
+                            <td>{{book.access_type}}</td>
+                            <td>{{book.request_date}}</td>
+                            <td>
+                                
+                                    <button  onclick="revokeAccess('{{ book.book_id }}'  , '{{book.user_id}}' , '{{ book.days }}')" type="button" class="btn btn-info">Revoke access</button>
+                                    <button  onclick="permitUser('{{book.book_id}}' , '{{book.user_id}}' , '{{ book.days }}' )" type="button" class="btn btn-dark">permit </button>
+                                
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        function permitUser(bookId, userId , days) {
+    // Display an alert message
+    alert("Give permit to the user");
+            console.log("BookId",bookId)
+            console.log("user_id" , userId)
+            console.log("days" , days)
+    // Make an AJAX request to update the access_type
+    fetch('/update_access', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            book_id: bookId,
+            user_id: userId,
+            // days : days , // Add user_id to the request body
+            access_type: 'accepted'
+        })
+    }).then(response => {
+        if (response.ok) {
+            alert("Permit granted successfully");
+        } else {
+            alert("Failed to update access");
+        }
+    }).catch(error => {
+        console.error('Error:', error);
+        alert("Failed to update access");
+    });
+}
+
+    </script>
+    
+    <script>
+        function revokeAccess(bookId, userId , days) {
+            // Display a confirmation dialog
+            if (confirm("Are you sure you want to revoke access to this book?")) {
+                // Send a POST request to update the access type
+                console.log("bookid" , bookId)
+
+                fetch('/revoke_access', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        book_id: bookId,
+                        // book_id: bookId,
+                        user_id: userId,
+                        access_type: 'denied'
+                    })
+                }).then(response => {
+                    if (response.ok) {
+                        alert("Access revoked successfully!");
+                    } else {
+                        alert("Failed to revoke access.");
+                    }
+                }).catch(error => {
+                    console.error('Error:', error);
+                    alert("Failed to revoke access.");
+                });
+            }
+        }
+    </script>
+    
+    
+</body>
+</html>

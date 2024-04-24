@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Books</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Custom CSS can go here */
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Update Book</h2>
+        <form action="/update_boook/{{book_to_update.id}}" method="POST" enctype="multipart/form-data">
+            <input type="hidden" name="section_id" value="{{ section_id }}">
+            <div class="form-group">
+                <label for="bookTitle">Title:</label>
+                <input type="text" class="form-control" id="bookTitle" name="name" value = "{{book_to_update.name}}" required>
+            </div>
+            <div class="form-group">
+                <label for="bookContent">Content:</label>
+                <textarea class="form-control" id="bookContent" name="content" rows="5" required>{{book_to_update.content}}</textarea>
+            </div>
+            <div class="form-group">
+                <label for="authorName">Author Name:</label>
+                <input type="text" class="form-control" id="authorName" name="author" value = "{{book_to_update.author}}" required>
+            </div>
+            <div class="form-group">
+                <label for="publishedDate">Published Date:</label>
+                <input type="date" class="form-control" id="publishedDate" name="issue_date" value="{{ book_to_update.issue_date.strftime('%Y-%m-%d') if book_to_update.issue_date else 'YYYY-MM-DD' }}" required>
+            </div>
+            <div class="form-group">
+                <label for="posterLink">Poster Link:</label>
+                <input type="text" class="form-control" id="posterLink" name="poster" value = "{{book_to_update.poster}}">
+            </div>
+            <div class="form-group">
+                <label for="bookPrice">Price:</label>
+                <input type="text" class="form-control" id="bookPrice" name="price" value = "{{book_to_update.price}}">
+            </div>
+            <!-- <div class="form-group">
+                <label for="bookCover">Upload Book Cover:</label>
+                <input type="file" class="form-control-file" id="bookCover" name="bookCover" accept="image/*" required>
+            </div> -->
+            <div class="form-group">
+                <label for="bookFile">Upload Book (PDF):</label>
+                <input type="file" class="form-control-file" id="bookFile" name="pdf_file" accept=".pdf" >
+            </div>
+            <button type="submit" class="btn btn-primary">Update Book</button>
+        </form>
+    </div>
+    <!-- Bootstrap JS and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Custom JavaScript -->
+    <script>
+        // JavaScript code can go here
+    </script>
+</body>
+</html>

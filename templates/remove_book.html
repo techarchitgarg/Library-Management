@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Library Management System</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> 
+</head>
+<body>
+  <div class="container">
+    <h1 class="mt-5 mb-4">Library Books</h1>
+    <div class="row">
+      <!-- Book Card -->
+      {% for boook in allBooks %}
+      <div class="col-md-4 mb-4">
+        <div class="card">
+          <img src= {{boook.poster}} class="card-img-top" alt="Book Cover" height = "300px" width = "300px">
+          <div class="card-body">
+            <h5 class="card-title">{{boook.name}}</h5>
+            <p class="card-text">{{boook.author}}</p>
+            <p class="card-text">Price - {{boook.price}}</p>
+            <!-- <a href="#" class="btn btn-primary">View Details</a> -->
+            <a href = "/delte_boook/{{boook.id}}/{{boook.section_id}}" class="btn btn-warning mr-2">Delete book</a>
+            <a href = "/update_boook/{{boook.id}}" class="btn btn-secondary">Update book</a>
+          </div>
+        </div>
+      </div>
+      {%endfor %}
+      <!-- End of Book Card -->
+
+      <!-- Repeat the above card for each book -->
+      
+    </div>
+  </div>
+
+  <!-- Bootstrap JS and dependencies -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment Gateway</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <!-- Custom CSS -->
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+    .payment-form {
+      max-width: 500px;
+      margin: 50px auto;
+      padding: 30px;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="payment-form">
+      <h2 class="text-center mb-4">Payment Gateway</h2>
+      <form id="paymentForm" action="/pdf_viewer" method="GET">
+        <div class="form-group">
+          <label for="cardNumber">Card Number</label>
+          <input type="text" id="cardNumber" class="form-control" placeholder="1234 5678 9012 3456" required>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="expiryDate">Expiry Date</label>
+            <input type="text" id="expiryDate" class="form-control" placeholder="MM/YY" required>
+          </div>
+          <div class="form-group col-md-6">
+            <label for="cvv">CVV</label>
+            <input type="text" id="cvv" class="form-control" placeholder="123" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="cardHolderName">Card Holder Name</label>
+          <input type="text" id="cardHolderName" class="form-control" placeholder="John Doe" required>
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-dark btn-block">Pay Now</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS and dependencies -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <!-- Custom JS -->
+  <script>
+    // Prevent form submission
+    document.getElementById('paymentForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+      // Call your payment processing function here
+      // For demonstration purposes, let's just display an alert
+      alert('Payment processed successfully!');
+      window.location.href = "/pdf_viewer";
+    });
+  </script>
+</body>
+</html>

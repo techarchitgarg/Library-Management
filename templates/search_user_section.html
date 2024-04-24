@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Sections - Library Management System</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+    <!-- Custom CSS -->
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            margin-top: 50px;
+        }
+
+        .card {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    
+
+    <div class="container">
+        <h2 class="text-center mt-4 mb-4">Book Sections</h2>
+
+        <div class="row">
+
+            {% for todo in section %}
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="https://via.placeholder.com/300/228B22/FFFFFF?text={{todo.name}}" class="card-img-top"
+                         alt="Non-Fiction"> 
+                    <div class="card-body">
+                        <h5 class="card-title">{{todo.name}}</h5>
+                        <p class="card-text">{{todo.description}}</p>
+                        <!-- <a href="/exploreBooks/{{ todo.id }}?user_id={{ active_user.user_id }}" class="btn btn-primary">Explore</a> -->
+                        <a href="/exploreBooks/{{ todo.id }}?user_id={{ active_user.user_id }}&username={{ active_user.username }}" class="btn btn-primary">Explore</a>
+
+                    </div>
+                </div>
+            </div>
+              {% endfor %}
+                    
+            <!-- Add more sections as needed -->
+
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and Popper.js -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap

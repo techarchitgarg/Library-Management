@@ -1,0 +1,45 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Book</title>
+    <!-- Add any CSS styling or links here -->
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <!-- Display Book Content -->
+                <div style="text-align: center;">
+                    <h1>{{ book.name }}</h1>
+                    <h3>Author: {{ book.author }}</h3>
+                    <h4>Issue Date: {{ book.issue_date }}</h4>
+                    <h4>{{ book.content }}</h4>
+                </div>
+                
+                <embed id="pdfEmbed" src="\static\pdf_folder\python certificate.pdf#toolbar=0" width="1680px" height="850px"/>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript to restrict access to the PDF file based on days -->
+    <script>
+        // Get the access end date from the server or use a hardcoded value
+        var accessEndDate = new Date("{{ access_end_date }}");
+
+        // Get the current date
+        var currentDate = new Date();
+
+        // Check if the current date is after the access end date
+        if (currentDate > accessEndDate) {
+            // If the access end date has passed, hide the PDF content
+            document.getElementById("pdfEmbed").style.display = "none";
+
+            alert("Your access to this book has expired.");
+        }
+    </script>
+</body>
+</html>
+

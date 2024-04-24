@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Library Management System</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Custom CSS can go here */
+    </style>
+</head>
+<body>
+    <header class="bg-dark text-white text-center py-4">
+        <h1>Welcome Admin</h1>
+    </header>
+
+    <div class="container mt-5">
+        <section>
+            <h1>Library Statistics</h1>
+            <ul class="list-unstyled">
+                <li><h4>Total Number of Books: <span id="totalBooks">{{BookCount}}</span></h4></li>
+                <li><h4>Total Number of Sections: <span id="totalSections">{{sectionCOunt}}</span></h4></li>
+            </ul>
+        </section>
+
+        <!-- <section>
+            <h2>Books by Section</h2>
+            <div id="booksBySection">
+                <div class="section">
+                    <h3>Section Name</h3>
+                    <ul class="list-unstyled">
+                        <li>Book 1</li>
+                        <li>Book 2</li>
+                    </ul>
+                </div>
+            </div>
+        </section> -->
+
+        <!-- Button for adding sections -->
+        <a class="btn btn-primary btn-lg" href="{{ url_for('add_section') }}" role="button">Add Section</a>
+        <a class="btn btn-primary btn-lg" href="{{ url_for('add_books') }}" role="button">Manage Books</a> 
+        <a class="btn btn-primary btn-lg" href="{{ url_for('RequestAccess') }}" role="button">Request Acess</a> 
+
+    </div>
+    <!-- Bootstrap JS and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Custom JavaScript -->
+    <script>
+        // JavaScript code can go here
+    </script>
+    <br>
+    <br>
+    <div style = "text-align: center;">
+    <!-- <div style="text-align: right;"> -->
+    <form action="/search_section" method="GET" class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="text" name="search_query" value="{{ search_query }}" placeholder="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+<!-- </div> -->
+    <br>
+      {% if alltodo %}
+      <table class="table">
+          <thead>
+              <tr>
+                  <th scope="col">S.No</th>
+                  <th scope="col">Title</th>
+                  <th scope="col">Description</th>
+                  <th scope="col">Options</th>
+                  <!-- <th scope="col">Actions</th> -->
+              </tr>
+          </thead>
+          <tbody>
+              {% for todo in alltodo %}
+              <tr>
+                  <th>{{ loop.index }}</th>
+                  <td>{{ todo.name }}</td>
+                  <td>{{ todo.description }}</td>
+                  <!-- <td>{{ todo.date_created }}</td> -->
+                  <td>
+                      <a href="/delete_section/{{todo.id}}" type="button" class="btn btn-info">Remove section</a>
+                      <!-- <a href="/delete/{{ todo.id }}" type="button" class="btn btn-info">Update</a> -->
+                      <a href="/update_section/{{todo.id}}" type="button" class="btn btn-dark">Update section</a>
+
+                  </td>
+              </tr>
+              {% endfor %}
+          </tbody>
+      </table>
+      {% else %}
+      <h3>No data available.</h3>
+      {% endif %}
+    </div>
+</body>
+<script>
+    // JavaScript code to handle deletion of section
+    document.querySelectorAll('.delete-section').forEach(button => {
+        button.addEventListener('click', function(event) {
+            event.preventDefault(); // Prevent the default behavior of clicking on a link
+
+            // Get the parent row of the button clicked
+            const row = this.closest('tr');
+
+            // Get the URL to delete the section
+            const deleteUrl = this.getAttribute('href');
+
+            // Send an AJAX request to delete the section
+            fetch(deleteUrl, {
+                method: 'GET',
+            }).then(response => {
+                if (response.ok) {
+                    // If the deletion was successful, remove the row from the table
+                    row.remove();
+                } else {
+                    console.error('Failed to delete section');
+                }
+            }).catch(error => {
+                console.error('Error deleting section:', error);
+            });
+        });
+    });
+</script>
+
+</html>

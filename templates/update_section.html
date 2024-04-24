@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Section</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <!-- Add Section Form -->
+        <div class="container mt-5">
+            <!-- Add Section Form -->
+            <form action="/update_section/{{section_to_update.id}}" id="addSectionForm" method="POST">
+                <div class="form-group">
+                    <label for="sectionName">Section Name</label>
+                    <input type="text" class="form-control" id="sectionName" name="sectionName" value="{{ section_to_update.name }}" required>
+                </div>
+                <div class="form-group">
+                    <label for="sectionDescription">Section Description</label>
+                    <textarea class="form-control" id="sectionDescription" name="sectionDescription" rows="3">{{ section_to_update.description }}</textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Update Section</button>
+            </form>
+        </div>
+        
+    </div>
+
+    <!-- Bootstrap JS and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Custom JavaScript -->
+    <!-- <script>
+        $(document).ready(function() {
+            // Handle form submission
+            $('#addSectionForm').submit(function(event) {
+                event.preventDefault(); // Prevent default form submission
+                var sectionName = $('#sectionName').val();
+                var sectionDescription = $('#sectionDescription').val();
+                
+                // Send section data to the Flask backend
+                $.post('/add_section', {sectionName: sectionName, sectionDescription: sectionDescription}, function(response) {
+                    // Redirect to the admin page after successfully adding the section
+                    window.location.href = '/admin';
+                });
+            });
+        });
+    </script> -->
+</body>
+</html>
